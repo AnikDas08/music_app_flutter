@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/countries.dart';
 import '../../../../../config/api/api_end_point.dart';
 import '../../../../../config/route/app_routes.dart';
 import '../../../../../services/api/api_client.dart';
@@ -16,7 +17,16 @@ class SignInController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  /// number and country code Controller here
+  final numberController = TextEditingController();
+  String countryCode = '+256';
+
   final ApiClient apiClient = DioApiClient();
+
+  /// Change selected country
+  void onCountryChange(Country value) {
+    countryCode = value.dialCode;
+  }
 
   /// Sign in Api call here
   Future<void> signInUser() async {
@@ -26,7 +36,7 @@ class SignInController extends GetxController {
       isLoading = true;
       update();
 
-      Get.toNamed(AppRoutes.profile);
+      Get.toNamed(AppRoutes.verifyUser);
       return;
 
       final Map<String, String> body = {
@@ -69,8 +79,9 @@ class SignInController extends GetxController {
 
   @override
   void onClose() {
-    emailController.dispose();
+    /*emailController.dispose();
     passwordController.dispose();
+    numberController.dispose();*/
     super.onClose();
   }
 }

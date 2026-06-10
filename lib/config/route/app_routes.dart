@@ -1,7 +1,11 @@
 import 'package:get/get.dart';
+import '../../features/common/home_nav/home_nav_screen/home_nav_screen.dart';
 import '../../features/common/onboarding_screen/artist_onboarding/artist_onboarding_screen.dart';
 import '../../features/common/onboarding_screen/listener_onboarding/listener_onboarding_screen.dart';
 import '../../features/common/select_role_screen/select_role_screen.dart';
+import '../../features/listener/home/screens/details_featuredartists_screen.dart';
+import '../../features/listener/home/screens/details_trendingartist_screen.dart';
+import '../../features/listener/home/screens/artist_profile_screen.dart';
 
 import '../../features/auth/change_password/presentation/screen/change_password_screen.dart';
 import '../../features/auth/forgot password/presentation/screen/create_password.dart';
@@ -27,6 +31,7 @@ class AppRoutes {
   static const String signUp = '/sign_up_screen.dart';
   static const String verifyUser = '/verify_user.dart';
   static const String signIn = '/sign_in_screen.dart';
+  static const String homeNav = '/home_nav_screen.dart';
   static const String forgotPassword = '/forgot_password.dart';
   static const String verifyEmail = '/verify_screen.dart';
   static const String createPassword = '/create_password.dart';
@@ -40,6 +45,9 @@ class AppRoutes {
   static const String termsOfServices = '/terms_of_services_screen.dart';
   static const String setting = '/setting_screen.dart';
   static const String selectRole = '/selectRole';
+  static const String detailsFeaturedArtists = '/details_featuredartists_screen.dart';
+  static const String detailsTrendingArtists = '/details_trendingartist_screen.dart';
+  static const String artistProfile = '/artist_profile_screen.dart';
 
   static List<GetPage<String>> routes = [
     GetPage(name: splash, page: () => const SplashScreen()),
@@ -49,6 +57,7 @@ class AppRoutes {
     GetPage(name: signUp, page: () => SignUpScreen()),
     GetPage(name: verifyUser, page: () => const VerifyUser()),
     GetPage(name: signIn, page: () => SignInScreen()),
+    GetPage(name: homeNav, page: () => HomeNavScreen()),
     GetPage(name: forgotPassword, page: () => ForgotPasswordScreen()),
     GetPage(name: verifyEmail, page: () => VerifyScreen()),
     GetPage(name: createPassword, page: () => CreatePassword()),
@@ -59,5 +68,8 @@ class AppRoutes {
     GetPage(name: profile, page: () => const ProfileScreen()),
     GetPage(name: editProfile, page: () => EditProfile()),
     GetPage(name: selectRole, page: () => SelectRoleScreen()),
+    GetPage(name: detailsFeaturedArtists, page: () => const DetailsFeaturedArtistsScreen()),
+    GetPage(name: detailsTrendingArtists, page: () => const DetailsTrendingArtistScreen()),
+    GetPage(name: artistProfile, page: () => const ArtistProfileScreen()),
   ];
 }

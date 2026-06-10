@@ -127,7 +127,7 @@ class SignUpController extends GetxController {
 
   /// Verify OTP API call
   Future<void> verifyOtp() async {
-    Get.offAllNamed(AppRoutes.signIn);
+    Get.offAllNamed(AppRoutes.homeNav);
     return;
     try {
       _setVerifyLoading(true);
@@ -160,12 +160,12 @@ class SignUpController extends GetxController {
   @override
   void onClose() {
     _timer?.cancel();
-    nameController.dispose();
+    /*nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
     numberController.dispose();
-    otpController.dispose();
+    otpController.dispose();*/
     super.onClose();
   }
 }

@@ -69,27 +69,32 @@ class SelectRoleScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 24.h,),
-              Center(
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'Already have an account?',
-                        style: GoogleFonts.lato(
-                          color: AppColors.textColor,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      TextSpan(
-                        text: ' Sign In',
-                        style: GoogleFonts.lato(
-                            color: AppColors.primaryColor,
+              GestureDetector(
+                onTap: (){
+                  Get.toNamed(AppRoutes.signIn);
+                },
+                child: Center(
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Already have an account?',
+                          style: GoogleFonts.lato(
+                            color: AppColors.textColor,
                             fontSize: 16.sp,
-                            fontWeight: FontWeight.w700
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                    ],
+                        TextSpan(
+                          text: ' Sign In',
+                          style: GoogleFonts.lato(
+                              color: AppColors.primaryColor,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w700
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

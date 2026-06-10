@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:muzikgen_app/component/image/common_image.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:muzikgen_app/component/button/common_button.dart';
 import 'package:muzikgen_app/component/text/common_text.dart';
@@ -53,13 +54,17 @@ class _VerifyUserState extends State<VerifyUser> {
                       SizedBox(height: 30.h),
 
                       // Center Crown & Musical Note Badge
-                      _buildCrownNoteBadge(),
+                      CommonImage(
+                        imageSrc: "assets/images/musicimage.png",
+                        height: 90,
+                        width: 90,
+                      ),
                       SizedBox(height: 24.h),
 
                       // Heading Title
                       const CommonText(
                         text: "Verify Account",
-                        fontSize: 28,
+                        fontSize: 30,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                         textAlign: TextAlign.center,
@@ -68,7 +73,8 @@ class _VerifyUserState extends State<VerifyUser> {
 
                       // Dynamic Number Subtitle
                       CommonText(
-                        text: "Enter The 6-Digit Code Sent To\n${controller.countryCode} ${controller.numberController.text}",
+                        text:
+                            "Enter The 6-Digit Code Sent To\n${controller.countryCode} ${controller.numberController.text}",
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: AppColors.secondaryTextColor,
@@ -90,9 +96,15 @@ class _VerifyUserState extends State<VerifyUser> {
                             shape: PinCodeFieldShape.circle,
                             fieldHeight: 48.h,
                             fieldWidth: 48.w,
-                            activeFillColor: const Color(0xFF242424).withValues(alpha: 0.5),
-                            selectedFillColor: const Color(0xFF242424).withValues(alpha: 0.5),
-                            inactiveFillColor: const Color(0xFF242424).withValues(alpha: 0.5),
+                            activeFillColor: const Color(
+                              0xFF242424,
+                            ).withValues(alpha: 0.5),
+                            selectedFillColor: const Color(
+                              0xFF242424,
+                            ).withValues(alpha: 0.5),
+                            inactiveFillColor: const Color(
+                              0xFF242424,
+                            ).withValues(alpha: 0.5),
                             borderWidth: 1.5.r,
                             selectedColor: AppColors.primaryColor,
                             activeColor: AppColors.primaryColor,
@@ -162,42 +174,6 @@ class _VerifyUserState extends State<VerifyUser> {
             );
           },
         ),
-      ),
-    );
-  }
-
-  // --- Badge Helper ---
-  Widget _buildCrownNoteBadge() {
-    return Container(
-      height: 76.r,
-      width: 76.r,
-      decoration: BoxDecoration(
-        color: const Color(0xFF131315),
-        shape: BoxShape.circle,
-        border: Border.all(color: AppColors.primaryColor, width: 2.r),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primaryColor.withValues(alpha: 0.18),
-            blurRadius: 10,
-            spreadRadius: 2,
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.workspace_premium, // Crown icon
-            color: const Color(0xFFFFD700), // Gold
-            size: 18.sp,
-          ),
-          SizedBox(height: 2.h),
-          Icon(
-            Icons.music_note,
-            color: const Color(0xFFFFD700), // Gold
-            size: 26.sp,
-          ),
-        ],
       ),
     );
   }
