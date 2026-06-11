@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:muzikgen_app/component/text/common_text.dart';
 import 'package:muzikgen_app/utils/constants/app_colors.dart';
+import 'package:muzikgen_app/config/route/app_routes.dart';
+
 
 class FeaturedArtistCard extends StatelessWidget {
   final String name;
@@ -192,34 +194,69 @@ class FeaturedArtistCard extends StatelessWidget {
                 SizedBox(height: 10.h),
                 // Price Row OR Listen Now Button
                 isSubscribed
-                    ? Container(
-                        height: 36.h,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryColor,
-                          borderRadius: BorderRadius.circular(100.r),
-                        ),
-                        alignment: Alignment.center,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Listen Now",
-                              style: GoogleFonts.lato(
-                                color: Colors.white,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.bold,
+                    ? GestureDetector(
+                        onTap: () {
+                          Get.toNamed(
+                            AppRoutes.musicPlayer,
+                            arguments: {
+                              'songs': [
+                                {
+                                  "title": track,
+                                  "badge": "New",
+                                  "duration": "3:50",
+                                  "plays": "125k Plays",
+                                  "imagePath": imagePath,
+                                },
+                                {
+                                  "title": "Mid Night Vibes",
+                                  "badge": "Exclusive",
+                                  "duration": "3:55",
+                                  "plays": "98k Plays",
+                                  "imagePath": "assets/images/artist_onboariding_second.png",
+                                },
+                                {
+                                  "title": "City Dreams",
+                                  "badge": null,
+                                  "duration": "5:00",
+                                  "plays": "60k Plays",
+                                  "imagePath": "assets/images/artist_onboarding_third.png",
+                                },
+                              ],
+                              'index': 0,
+                              'artistName': name,
+                            },
+                          );
+                        },
+                        child: Container(
+                          height: 36.h,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryColor,
+                            borderRadius: BorderRadius.circular(100.r),
+                          ),
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Listen Now",
+                                style: GoogleFonts.lato(
+                                  color: Colors.white,
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            SizedBox(width: 4.w),
-                            Icon(
-                              Icons.play_arrow,
-                              color: Colors.white,
-                              size: 14.sp,
-                            ),
-                          ],
+                              SizedBox(width: 4.w),
+                              Icon(
+                                Icons.play_arrow,
+                                color: Colors.white,
+                                size: 14.sp,
+                              ),
+                            ],
+                          ),
                         ),
                       )
+
                     : Row(
                         children: [
                           Icon(

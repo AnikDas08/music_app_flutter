@@ -6,6 +6,18 @@ import '../../features/common/select_role_screen/select_role_screen.dart';
 import '../../features/listener/home/screens/details_featuredartists_screen.dart';
 import '../../features/listener/home/screens/details_trendingartist_screen.dart';
 import '../../features/listener/home/screens/artist_profile_screen.dart';
+import '../../features/listener/home/screens/artist_all_songs_screen.dart';
+import '../../features/listener/home/screens/subscribe_plan_screen.dart';
+import '../../features/listener/home/screens/music_player_screen.dart';
+import '../../features/listener/home/screens/support_artist_screen.dart';
+import '../../features/listener/home/screens/report_song_screen.dart';
+import '../../features/listener/library/screens/recently_played_screen.dart';
+import '../../features/listener/library/screens/song_info_screen.dart';
+import '../../features/listener/library/screens/create_playlist_screen.dart';
+import '../../features/listener/library/screens/add_song_to_playlist_screen.dart';
+import '../../features/listener/library/screens/review_playlist_screen.dart';
+import '../../features/listener/library/screens/playlist_created_screen.dart';
+
 
 import '../../features/auth/change_password/presentation/screen/change_password_screen.dart';
 import '../../features/auth/forgot password/presentation/screen/create_password.dart';
@@ -48,6 +60,17 @@ class AppRoutes {
   static const String detailsFeaturedArtists = '/details_featuredartists_screen.dart';
   static const String detailsTrendingArtists = '/details_trendingartist_screen.dart';
   static const String artistProfile = '/artist_profile_screen.dart';
+  static const String artistAllSongs = '/artist_all_songs_screen.dart';
+  static const String subscribePlan = '/subscribe_plan_screen.dart';
+  static const String musicPlayer = '/music_player_screen.dart';
+  static const String supportArtist = '/support_artist_screen.dart';
+  static const String recentlyPlayed = '/recently_played_screen.dart';
+  static const String songInfo = '/song_info_screen.dart';
+  static const String createPlaylist = '/create_playlist_screen.dart';
+  static const String addSongToPlaylist = '/add_song_to_playlist_screen.dart';
+  static const String reviewPlaylist = '/review_playlist_screen.dart';
+  static const String playlistCreated = '/playlist_created_screen.dart';
+  static const String reportSong = '/report_song_screen.dart';
 
   static List<GetPage<String>> routes = [
     GetPage(name: splash, page: () => const SplashScreen()),
@@ -71,5 +94,16 @@ class AppRoutes {
     GetPage(name: detailsFeaturedArtists, page: () => const DetailsFeaturedArtistsScreen()),
     GetPage(name: detailsTrendingArtists, page: () => const DetailsTrendingArtistScreen()),
     GetPage(name: artistProfile, page: () => const ArtistProfileScreen()),
+    GetPage(name: artistAllSongs, page: () => const ArtistAllSongsScreen()),
+    GetPage(name: subscribePlan, page: () => const SubscribePlanScreen()),
+    GetPage(name: musicPlayer, page: () => const MusicPlayerScreen()),
+    GetPage(name: supportArtist, page: () => const SupportArtistScreen()),
+    GetPage(name: recentlyPlayed, page: () => const RecentlyPlayedScreen()),
+    GetPage(name: songInfo, page: () => const SongInfoScreen()),
+    GetPage(name: createPlaylist, page: () => const CreatePlaylistScreen()),
+    GetPage(name: addSongToPlaylist, page: () => const AddSongToPlaylistScreen()),
+    GetPage(name: reviewPlaylist, page: () => const ReviewPlaylistScreen()),
+    GetPage(name: playlistCreated, page: () => const PlaylistCreatedScreen()),
+    GetPage(name: reportSong, page: () => const ReportSongScreen()),
   ];
 }

@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'unlock_catalog_bottom_sheet.dart';
 
 class ArtistProfileUnlockBanner extends StatelessWidget {
-  const ArtistProfileUnlockBanner({super.key});
+  final String name;
+  final String price;
+  final String imagePath;
+
+  const ArtistProfileUnlockBanner({
+    super.key,
+    required this.name,
+    required this.price,
+    required this.imagePath,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -55,23 +66,36 @@ class ArtistProfileUnlockBanner extends StatelessWidget {
             ),
           ),
           SizedBox(width: 8.w),
-          // Learn More link
-          Row(
-            children: [
-              Text(
-                "Learn More",
-                style: GoogleFonts.lato(
-                  color: const Color(0xFF00C853),
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.bold,
+          // Learn More link (clickable)
+          GestureDetector(
+            onTap: () {
+              Get.bottomSheet(
+                UnlockCatalogBottomSheet(
+                  artistName: name,
+                  artistImage: imagePath,
+                  price: price,
                 ),
-              ),
-              Icon(
-                Icons.chevron_right,
-                color: const Color(0xFF00C853),
-                size: 14.sp,
-              ),
-            ],
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+              );
+            },
+            child: Row(
+              children: [
+                Text(
+                  "Learn More",
+                  style: GoogleFonts.lato(
+                    color: const Color(0xFF00C853),
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Icon(
+                  Icons.chevron_right,
+                  color: const Color(0xFF00C853),
+                  size: 14.sp,
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:muzikgen_app/component/text/common_text.dart';
 import 'package:muzikgen_app/features/profile/presentation/screen/profile_screen.dart';
 import '../../../listener/home/screens/listner_home_screen.dart';
+import '../../../listener/library/screens/listner_library_screen.dart';
 import '../../../listener/search/screens/listner_search_screen.dart';
 import '../controller/home_nav_controller.dart';
 import 'package:muzikgen_app/utils/constants/app_colors.dart';
@@ -45,7 +46,7 @@ class HomeNavScreen extends StatelessWidget {
           children: const [
             ListnerHomeScreen(),
             ListnerSearchScreen(),
-            Scaffold(backgroundColor: Color(0xFF131315), body: Center(child: CommonText(text: "Library Screen", color: Colors.white, fontSize: 18))),
+            ListnerLibraryScreen(),
             ProfileScreen(),
           ],
         ),

@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:muzikgen_app/config/route/app_routes.dart';
 
 class ArtistProfileSubscribeCta extends StatelessWidget {
   final String price;
+  final String artistName;
+  final String artistImage;
 
   const ArtistProfileSubscribeCta({
     super.key,
     required this.price,
+    required this.artistName,
+    required this.artistImage,
   });
 
   @override
@@ -18,7 +24,16 @@ class ArtistProfileSubscribeCta extends StatelessWidget {
           width: double.infinity,
           height: 48.h,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(
+                AppRoutes.subscribePlan,
+                arguments: {
+                  'name': artistName,
+                  'image': artistImage,
+                  'price': price,
+                },
+              );
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF00C853),
               shape: RoundedRectangleBorder(

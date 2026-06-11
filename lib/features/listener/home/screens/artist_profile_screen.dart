@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:muzikgen_app/component/text/common_text.dart';
+import 'package:muzikgen_app/component/other_widgets/common_app_bar.dart';
+import 'package:muzikgen_app/config/route/app_routes.dart';
 
 import '../widgets/artist_profile_header.dart';
 import '../widgets/artist_profile_stats.dart';
@@ -31,89 +33,64 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
     final String price = Get.arguments['price'] ?? "UGX 1,000";
     final String track = Get.arguments['track'] ?? "Afrobeats";
 
-    return Scaffold(
-      backgroundColor: const Color(0xFF0A0A0A),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-        leading: Center(
-          child: GestureDetector(
-            onTap: () => Get.back(),
-            child: Container(
-              height: 40.r,
-              width: 40.r,
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.08),
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.15),
-                  width: 1.r,
-                ),
-              ),
-              child: Icon(
-                Icons.chevron_left,
-                color: Colors.white,
-                size: 24.sp,
-              ),
-            ),
-          ),
-        ),
-        title: Text(
-          "Artist Profiles",
-          style: GoogleFonts.lato(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+    return Container(
+      decoration: const BoxDecoration(
+        color: Color(0xFF0A0A0A),
+        image: DecorationImage(
+          image: AssetImage("assets/images/profile_background.png"),
+          fit: BoxFit.cover,
         ),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 8.h),
-              
-              // Artist Info Header
-              ArtistProfileHeader(
-                name: name,
-                imagePath: imagePath,
-                track: track,
-              ),
-              SizedBox(height: 20.h),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: const CommonAppBar(title: "Artist Profiles"),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 8.h),
+                
+                // Artist Info Header
+                ArtistProfileHeader(
+                  name: name,
+                  imagePath: imagePath,
+                  track: track,
+                ),
+                SizedBox(height: 20.h),
 
-              // Stats Row
-              const ArtistProfileStats(),
-              SizedBox(height: 20.h),
+                // Stats Row
+                const ArtistProfileStats(),
+                SizedBox(height: 20.h),
 
-              // Conditional Subscription UI (Only if not subscribed)
-              if (!isSubscribed) ...[
-                ArtistProfileSubscribeCta(price: price),
-                SizedBox(height: 16.h),
-                const ArtistProfileUnlockBanner(),
-                SizedBox(height: 24.h),
+                // Conditional Subscription UI (Only if not subscribed)
+                if (!isSubscribed) ...[
+                  ArtistProfileSubscribeCta(price: price, artistName: name, artistImage: imagePath),
+                  SizedBox(height: 16.h),
+                  ArtistProfileUnlockBanner(name: name, price: price, imagePath: imagePath),
+                  SizedBox(height: 24.h),
+                ],
+
+                // Tab Bar
+                _buildTabBar(),
+                SizedBox(height: 20.h),
+
+                // Tab Contents (Conditional on selected index)
+                if (_selectedTabIndex == 0) ...[
+                  _buildSongsTab(name, imagePath, isSubscribed, price),
+                ] else if (_selectedTabIndex == 1) ...[
+                  _buildAlbumsTab(name, imagePath, isSubscribed, price),
+                ] else if (_selectedTabIndex == 2) ...[
+                  _buildEpsTab(name, imagePath, isSubscribed, price),
+                ] else if (_selectedTabIndex == 3) ...[
+                  _buildAboutArtistTab(name, track),
+                ] else ...[
+                  _buildPlaceholderTab(),
+                ],
               ],
-
-              // Tab Bar
-              _buildTabBar(),
-              SizedBox(height: 20.h),
-
-              // Tab Contents (Conditional on selected index)
-              if (_selectedTabIndex == 0) ...[
-                _buildSongsTab(isSubscribed, price),
-              ] else if (_selectedTabIndex == 1) ...[
-                _buildAlbumsTab(isSubscribed, price),
-              ] else if (_selectedTabIndex == 2) ...[
-                _buildEpsTab(isSubscribed, price),
-              ] else if (_selectedTabIndex == 3) ...[
-                _buildAboutArtistTab(name, track),
-              ] else ...[
-                _buildPlaceholderTab(),
-              ],
-            ],
+            ),
           ),
         ),
       ),
@@ -157,7 +134,7 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
   }
 
   // --- Songs Tab View Content ---
-  Widget _buildSongsTab(bool isSubscribed, String price) {
+  Widget _buildSongsTab(String name, String imagePath, bool isSubscribed, String price) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -170,66 +147,116 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
-            CommonText(
-              text: "See All",
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xFF00C853),
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(
+                  AppRoutes.artistAllSongs,
+                  arguments: {
+                    'name': name,
+                    'isSubscribed': isSubscribed,
+                    'image': imagePath,
+                    'price': price,
+                  },
+                );
+              },
+              child: CommonText(
+                text: "See All",
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xFF00C853),
+              ),
             ),
           ],
         ),
         SizedBox(height: 16.h),
 
-        // List of songs using refactored widgets
-        ArtistProfileSongItem(
-          title: "Sunset Dreams",
-          badge: "Exclusive",
-          duration: "3:50",
-          plays: "125k Plays",
-          imagePath: "assets/images/artist_onboarding_first.png",
-          isLocked: !isSubscribed,
-        ),
-        ArtistProfileSongItem(
-          title: "Mid Night Vibes",
-          badge: "Exclusive",
-          duration: "3:55",
-          plays: "98k Plays",
-          imagePath: "assets/images/artist_onboariding_second.png",
-          isLocked: !isSubscribed,
-        ),
-        ArtistProfileSongItem(
-          title: "City Dreams",
-          duration: "5:00",
-          plays: "60k Plays",
-          imagePath: "assets/images/artist_onboarding_third.png",
-          isLocked: !isSubscribed,
-        ),
-        ArtistProfileSongItem(
-          title: "Ocean Waves",
-          badge: "New",
-          duration: "4:20",
-          plays: "80k Plays",
-          imagePath: "assets/images/artist_onboarding_fourth.png",
-          isLocked: !isSubscribed,
-        ),
-        ArtistProfileSongItem(
-          title: "City Dreams",
-          duration: "5:00",
-          plays: "60k Plays",
-          imagePath: "assets/images/artist_onboarding_fifth.png",
-          isLocked: !isSubscribed,
-        ),
-        ArtistProfileSongItem(
-          title: "City Dreams",
-          duration: "5:00",
-          plays: "60k Plays",
-          imagePath: "assets/images/artist_onboarding_first.png",
-          isLocked: !isSubscribed,
-        ),
+        // Dynamic list of songs wired with navigation
+        ...() {
+          final List<Map<String, dynamic>> songsList = [
+            {
+              "title": "Sunset Dreams",
+              "badge": "Exclusive",
+              "duration": "3:50",
+              "plays": "125k Plays",
+              "imagePath": "assets/images/artist_onboarding_first.png",
+            },
+            {
+              "title": "Mid Night Vibes",
+              "badge": "Exclusive",
+              "duration": "3:55",
+              "plays": "98k Plays",
+              "imagePath": "assets/images/artist_onboariding_second.png",
+            },
+            {
+              "title": "City Dreams",
+              "badge": null,
+              "duration": "5:00",
+              "plays": "60k Plays",
+              "imagePath": "assets/images/artist_onboarding_third.png",
+            },
+            {
+              "title": "Ocean Waves",
+              "badge": "New",
+              "duration": "4:20",
+              "plays": "80k Plays",
+              "imagePath": "assets/images/artist_onboarding_fourth.png",
+            },
+            {
+              "title": "City Dreams",
+              "badge": null,
+              "duration": "5:00",
+              "plays": "60k Plays",
+              "imagePath": "assets/images/artist_onboarding_fifth.png",
+            },
+            {
+              "title": "City Dreams",
+              "badge": null,
+              "duration": "5:00",
+              "plays": "60k Plays",
+              "imagePath": "assets/images/artist_onboarding_first.png",
+            },
+          ];
+
+          return songsList.asMap().entries.map((entry) {
+            final int index = entry.key;
+            final song = entry.value;
+            return GestureDetector(
+              onTap: () {
+                if (isSubscribed) {
+                  Get.toNamed(
+                    AppRoutes.musicPlayer,
+                    arguments: {
+                      'songs': songsList,
+                      'index': index,
+                      'artistName': name,
+                    },
+                  );
+                } else {
+                  Get.toNamed(
+                    AppRoutes.subscribePlan,
+                    arguments: {
+                      'name': name,
+                      'image': imagePath,
+                      'price': price,
+                    },
+                  );
+                }
+              },
+              child: ArtistProfileSongItem(
+                title: song["title"] as String,
+                badge: song["badge"] as String?,
+                duration: song["duration"] as String,
+                plays: song["plays"] as String,
+                imagePath: song["imagePath"] as String,
+                isLocked: !isSubscribed,
+              ),
+            );
+          });
+        }(),
 
         // Bottom locking banner overlay (Only if not subscribed)
         if (!isSubscribed) ...[
-          ArtistProfileLockCard(price: price),
+          ArtistProfileLockCard(price: price, artistName: name, artistImage: imagePath),
         ] else ...[
           SizedBox(height: 24.h),
         ],
@@ -238,7 +265,7 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
   }
 
   // --- Albums Tab View Content ---
-  Widget _buildAlbumsTab(bool isSubscribed, String price) {
+  Widget _buildAlbumsTab(String name, String imagePath, bool isSubscribed, String price) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -251,11 +278,22 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
-            CommonText(
-              text: "See All",
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xFF00C853),
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(
+                  AppRoutes.artistAllSongs,
+                  arguments: {
+                    'name': name,
+                    'isSubscribed': isSubscribed,
+                  },
+                );
+              },
+              child: CommonText(
+                text: "See All",
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xFF00C853),
+              ),
             ),
           ],
         ),
@@ -288,7 +326,7 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
 
         // Bottom locking banner overlay (Only if not subscribed)
         if (!isSubscribed) ...[
-          ArtistProfileLockCard(price: price),
+          ArtistProfileLockCard(price: price, artistName: name, artistImage: imagePath),
         ] else ...[
           SizedBox(height: 24.h),
         ],
@@ -297,7 +335,7 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
   }
 
   // --- EPs Tab View Content ---
-  Widget _buildEpsTab(bool isSubscribed, String price) {
+  Widget _buildEpsTab(String name, String imagePath, bool isSubscribed, String price) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -310,11 +348,22 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
-            CommonText(
-              text: "See All",
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xFF00C853),
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(
+                  AppRoutes.artistAllSongs,
+                  arguments: {
+                    'name': name,
+                    'isSubscribed': isSubscribed,
+                  },
+                );
+              },
+              child: CommonText(
+                text: "See All",
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xFF00C853),
+              ),
             ),
           ],
         ),
@@ -347,7 +396,7 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
 
         // Bottom locking banner overlay (Only if not subscribed)
         if (!isSubscribed) ...[
-          ArtistProfileLockCard(price: price),
+          ArtistProfileLockCard(price: price, artistName: name, artistImage: imagePath),
         ] else ...[
           SizedBox(height: 24.h),
         ],

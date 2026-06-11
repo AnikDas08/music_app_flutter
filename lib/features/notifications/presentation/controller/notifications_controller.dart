@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../../utils/app_snackbar.dart';
 import '../../data/model/notification_model.dart';
-import '../../repository/notification_repository.dart';
 
 class NotificationsController extends GetxController {
   /// Notification list
@@ -16,83 +13,141 @@ class NotificationsController extends GetxController {
   /// Scroll controller
   final ScrollController scrollController = ScrollController();
 
-  /// Get instance
-  static NotificationsController get instance =>
-      Get.find<NotificationsController>();
+  /// Mock Notifications List
+  final RxList<Map<String, dynamic>> mockNotifications = <Map<String, dynamic>>[].obs;
+  final RxBool isInitialized = false.obs;
 
-  /// Init
+  /// Get instance
+  static NotificationsController get instance => Get.find<NotificationsController>();
+
   @override
   void onInit() {
     super.onInit();
-    scrollController.addListener(_onScroll);
-    getNotifications();
+    initMockNotifications();
   }
 
-  /// Scroll listener
-  void _onScroll() {
-    if (scrollController.position.pixels >=
-        scrollController.position.maxScrollExtent) {
-      loadMore();
+  void initMockNotifications() {
+    if (isInitialized.value) return;
+    mockNotifications.assignAll([
+      {
+        "id": "1",
+        "type": "new_release",
+        "title": "New Release",
+        "subtitle": "Kendi Music Just Released",
+        "mainContent": "Ocean Waves",
+        "imagePath": "assets/images/artist_onboarding_first.png",
+        "time": "1 Min Ago",
+        "isUnread": true,
+      },
+      {
+        "id": "2",
+        "type": "new_release",
+        "title": "New Release",
+        "subtitle": "Kendi Music Just Released",
+        "mainContent": "Ocean Waves",
+        "imagePath": "assets/images/artist_onboariding_second.png",
+        "time": "1 Min Ago",
+        "isUnread": true,
+      },
+      {
+        "id": "3",
+        "type": "unlocked",
+        "title": "You Unlocked",
+        "subtitle": "Because You Supported For",
+        "mainContent": "Top Supporter Badge",
+        "imagePath": "assets/images/artist_onboarding_third.png",
+        "time": "1 Month Ago",
+        "isUnread": true,
+      },
+      {
+        "id": "4",
+        "type": "payment_success",
+        "title": "Payment Successful",
+        "subtitle": "Your Subscription Was Renewed",
+        "mainContent": "UGX1,000 Monthly",
+        "imagePath": "payment_card",
+        "time": "1 Min Ago",
+        "isUnread": false,
+      },
+      {
+        "id": "5",
+        "type": "new_release",
+        "title": "New Release",
+        "subtitle": "Kendi Music Just Released",
+        "mainContent": "Ocean Waves",
+        "imagePath": "assets/images/artist_onboarding_fourth.png",
+        "time": "1 Min Ago",
+        "isUnread": true,
+      },
+      {
+        "id": "6",
+        "type": "new_release",
+        "title": "New Release",
+        "subtitle": "Kendi Music Just Released",
+        "mainContent": "Ocean Waves",
+        "imagePath": "assets/images/artist_onboarding_fifth.png",
+        "time": "1 Min Ago",
+        "isUnread": true,
+      },
+      {
+        "id": "7",
+        "type": "new_release",
+        "title": "New Release",
+        "subtitle": "Kendi Music Just Released",
+        "mainContent": "Ocean Waves",
+        "imagePath": "assets/images/artist_onboarding_first.png",
+        "time": "1 Min Ago",
+        "isUnread": true,
+      },
+    ]);
+    isInitialized.value = true;
+  }
+
+  void markAllRead() {
+    for (var i = 0; i < mockNotifications.length; i++) {
+      mockNotifications[i] = {
+        ...mockNotifications[i],
+        "isUnread": false,
+      };
     }
+    mockNotifications.refresh();
   }
 
-  /// Fetch notifications (first load)
-  Future<void> getNotifications() async {
-    if (isLoading) return;
-    try {
-      isLoading = true;
-      update();
-
-      final list = await notificationRepository(page);
-
-      if (list.isEmpty) {
-        hasNoData = true;
-      } else {
-        notifications.addAll(list);
-        page++;
-      }
-    } catch (e) {
-      AppSnackbar.error(title: 'Error', message: e.toString());
-    } finally {
-      isLoading = false;
-      update();
-    }
+  void clearAll() {
+    if (mockNotifications.isEmpty) return;
+    mockNotifications.clear();
+    Get.snackbar(
+      "Cleared",
+      "All notifications cleared.",
+      backgroundColor: const Color(0xFF131315),
+      colorText: Colors.white,
+      snackPosition: SnackPosition.BOTTOM,
+      duration: const Duration(seconds: 2),
+    );
   }
 
-  /// Load more notifications (pagination)
-  Future<void> loadMore() async {
-    if (isLoadingMore || hasNoData) return;
+  void deleteNotification(String id) {
+    final item = mockNotifications.firstWhereOrNull((element) => element['id'] == id);
+    if (item == null) return;
 
-    try {
-      isLoadingMore = true;
-      update();
+    mockNotifications.removeWhere((element) => element['id'] == id);
 
-      final list = await notificationRepository(page);
-
-      if (list.isEmpty) {
-        hasNoData = true;
-      } else {
-        notifications.addAll(list);
-        page++;
-      }
-    } catch (e) {
-      AppSnackbar.error(title: 'Error', message: e.toString());
-    } finally {
-      isLoadingMore = false;
-      update();
-    }
+    Get.snackbar(
+      "Deleted",
+      "Notification '${item['title']}' deleted.",
+      backgroundColor: const Color(0xFF131315),
+      colorText: Colors.white,
+      snackPosition: SnackPosition.BOTTOM,
+      duration: const Duration(seconds: 2),
+    );
   }
 
-  /// Refresh manually
+  /// Empty refresh
   @override
   Future<void> refresh() async {
-    page = 1;
-    hasNoData = false;
-    notifications.clear();
-    await getNotifications();
+    initMockNotifications();
   }
 
-  /// Dispose
   @override
   void onClose() {
     scrollController.dispose();
