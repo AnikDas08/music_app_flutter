@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:muzikgen_app/component/text/common_text.dart';
-import 'package:muzikgen_app/features/profile/presentation/screen/profile_screen.dart';
+import 'package:muzikgen_app/features/listener/profile/screens/listner_profile_screen.dart';
 import '../../../listener/home/screens/listner_home_screen.dart';
 import '../../../listener/library/screens/listner_library_screen.dart';
 import '../../../listener/search/screens/listner_search_screen.dart';
@@ -47,7 +47,7 @@ class HomeNavScreen extends StatelessWidget {
             ListnerHomeScreen(),
             ListnerSearchScreen(),
             ListnerLibraryScreen(),
-            ProfileScreen(),
+            ListnerProfileScreen(),
           ],
         ),
         bottomNavigationBar: Container(

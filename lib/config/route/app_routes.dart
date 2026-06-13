@@ -32,6 +32,16 @@ import '../../features/message/presentation/screen/message_screen.dart';
 import '../../features/notifications/presentation/screen/notifications_screen.dart';
 import '../../features/profile/presentation/screen/edit_profile.dart';
 import '../../features/profile/presentation/screen/profile_screen.dart';
+import '../../features/listener/profile/screens/listner_edit_profile_screen.dart';
+import '../../features/listener/profile/screens/listner_active_subscription_screen.dart';
+import '../../features/listener/profile/screens/listner_subscription_detail_screen.dart';
+import '../../features/listener/profile/screens/listner_cancel_subscription_screen.dart';
+import '../../features/listener/profile/screens/listner_manage_subscription_screen.dart';
+import '../../features/listener/profile/screens/listner_subscription_renew_screen.dart';
+import '../../features/listener/profile/screens/listner_settings_screen.dart';
+import '../../features/listener/profile/screens/listner_payment_history_screen.dart';
+import '../../features/listener/profile/screens/listner_help_support_screen.dart';
+import '../../features/listener/profile/screens/listner_faq_screen.dart';
 import '../../features/splash/splash_screen.dart';
 
 class AppRoutes {
@@ -53,6 +63,15 @@ class AppRoutes {
   static const String message = '/message_screen.dart';
   static const String profile = '/profile_screen.dart';
   static const String editProfile = '/edit_profile.dart';
+  static const String listnerEditProfile = '/listner_edit_profile_screen.dart';
+  static const String listnerActiveSubscription = '/listner_active_subscription_screen.dart';
+  static const String listnerSubscriptionDetail = '/listner_subscription_detail_screen.dart';
+  static const String listnerCancelSubscription = '/listner_cancel_subscription_screen.dart';
+  static const String listnerManageSubscription = '/listner_manage_subscription_screen.dart';
+  static const String listnerSubscriptionRenew = '/listner_subscription_renew_screen.dart';
+  static const String listnerPaymentHistory = '/listner_payment_history_screen.dart';
+  static const String listnerHelpSupport = '/listner_help_support_screen.dart';
+  static const String listnerFaq = '/listner_faq_screen.dart';
   static const String privacyPolicy = '/privacy_policy_screen.dart';
   static const String termsOfServices = '/terms_of_services_screen.dart';
   static const String setting = '/setting_screen.dart';
@@ -90,6 +109,16 @@ class AppRoutes {
     GetPage(name: message, page: () => const MessageScreen()),
     GetPage(name: profile, page: () => const ProfileScreen()),
     GetPage(name: editProfile, page: () => EditProfile()),
+    GetPage(name: listnerEditProfile, page: () => const ListnerEditProfileScreen()),
+    GetPage(name: listnerActiveSubscription, page: () => const ListnerActiveSubscriptionScreen()),
+    GetPage(name: listnerSubscriptionDetail, page: () => const ListnerSubscriptionDetailScreen()),
+    GetPage(name: listnerCancelSubscription, page: () => const ListnerCancelSubscriptionScreen()),
+    GetPage(name: listnerManageSubscription, page: () => const ListnerManageSubscriptionScreen()),
+    GetPage(name: listnerSubscriptionRenew, page: () => const ListnerSubscriptionRenewScreen()),
+    GetPage(name: setting, page: () => const ListnerSettingsScreen()),
+    GetPage(name: listnerPaymentHistory, page: () => const ListnerPaymentHistoryScreen()),
+    GetPage(name: listnerHelpSupport, page: () => const ListnerHelpSupportScreen()),
+    GetPage(name: listnerFaq, page: () => const ListnerFaqScreen()),
     GetPage(name: selectRole, page: () => SelectRoleScreen()),
     GetPage(name: detailsFeaturedArtists, page: () => const DetailsFeaturedArtistsScreen()),
     GetPage(name: detailsTrendingArtists, page: () => const DetailsTrendingArtistScreen()),
