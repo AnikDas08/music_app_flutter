@@ -5,6 +5,8 @@ import 'package:muzikgen_app/component/pop_up/common_pop_menu.dart';
 import 'package:muzikgen_app/component/text/common_text.dart';
 import 'package:muzikgen_app/config/route/app_routes.dart';
 import 'package:muzikgen_app/utils/constants/app_colors.dart';
+import 'package:muzikgen_app/features/common/home_nav/controller/home_nav_controller.dart';
+import 'package:muzikgen_app/features/listener/library/controller/listner_library_controller.dart';
 import '../controller/listner_profile_controller.dart';
 import '../widgets/active_subscription_card.dart';
 import '../widgets/profile_option_card.dart';
@@ -72,7 +74,15 @@ class ListnerProfileScreen extends StatelessWidget {
                             title: 'Downloads',
                             subtitle: 'Manage your downloaded music',
                             onTap: () {
-                              // Placeholder action
+                              final homeNavController = Get.isRegistered<HomeNavController>()
+                                  ? Get.find<HomeNavController>()
+                                  : Get.put(HomeNavController());
+                              homeNavController.changeIndex(2); // Library tab (index 2)
+
+                              final libraryController = Get.isRegistered<ListnerLibraryController>()
+                                  ? Get.find<ListnerLibraryController>()
+                                  : Get.put(ListnerLibraryController());
+                              libraryController.changeTab(2); // Downloads tab (index 2)
                             },
                           ),
 

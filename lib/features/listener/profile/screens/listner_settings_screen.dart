@@ -58,13 +58,7 @@ class ListnerSettingsScreen extends StatelessWidget {
                         title: 'Notifications',
                         subtitle: 'Muzikgen Related',
                         onTap: () {
-                          Get.snackbar(
-                            'Notifications',
-                            'Notification settings coming soon',
-                            snackPosition: SnackPosition.BOTTOM,
-                            backgroundColor: const Color(0xFF131315),
-                            colorText: Colors.white,
-                          );
+                          Get.toNamed(AppRoutes.listnerNotificationSettings);
                         },
                       ),
                       SizedBox(height: 12.h),
@@ -76,13 +70,7 @@ class ListnerSettingsScreen extends StatelessWidget {
                         title: 'Playback Preferences',
                         subtitle: 'Crossfade, audio quality',
                         onTap: () {
-                          Get.snackbar(
-                            'Preferences',
-                            'Playback preferences coming soon',
-                            snackPosition: SnackPosition.BOTTOM,
-                            backgroundColor: const Color(0xFF131315),
-                            colorText: Colors.white,
-                          );
+                          Get.toNamed(AppRoutes.playbackPreferences);
                         },
                       ),
                       ProfileOptionCard(
@@ -90,13 +78,7 @@ class ListnerSettingsScreen extends StatelessWidget {
                         title: 'Download Quality',
                         subtitle: 'Choose your download quality',
                         onTap: () {
-                          Get.snackbar(
-                            'Downloads',
-                            'Download quality preferences coming soon',
-                            snackPosition: SnackPosition.BOTTOM,
-                            backgroundColor: const Color(0xFF131315),
-                            colorText: Colors.white,
-                          );
+                          Get.toNamed(AppRoutes.downloadQuality);
                         },
                       ),
                       SizedBox(height: 12.h),
@@ -136,13 +118,7 @@ class ListnerSettingsScreen extends StatelessWidget {
                         title: 'About Muzikgen',
                         subtitle: 'Version 1.0.0',
                         onTap: () {
-                          Get.snackbar(
-                            'About',
-                            'Muzikgen Version 1.0.0',
-                            snackPosition: SnackPosition.BOTTOM,
-                            backgroundColor: const Color(0xFF131315),
-                            colorText: Colors.white,
-                          );
+                          Get.toNamed(AppRoutes.listnerAbout);
                         },
                       ),
                       SizedBox(height: 24.h),
@@ -233,28 +209,7 @@ class ListnerSettingsScreen extends StatelessWidget {
   Widget _buildDeleteAccountButton() {
     return GestureDetector(
       onTap: () {
-        Get.defaultDialog(
-          title: 'Delete Account',
-          titleStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          middleText: 'Are you sure you want to delete your account? This action is permanent and cannot be undone.',
-          middleTextStyle: const TextStyle(color: AppColors.secondaryTextColor),
-          backgroundColor: const Color(0xFF1C1C1E),
-          textConfirm: 'Delete',
-          textCancel: 'Cancel',
-          confirmTextColor: Colors.white,
-          cancelTextColor: AppColors.primaryColor,
-          buttonColor: AppColors.red,
-          onConfirm: () {
-            Get.back();
-            Get.snackbar(
-              'Request Sent',
-              'Account deletion request submitted.',
-              snackPosition: SnackPosition.BOTTOM,
-              backgroundColor: const Color(0xFF1A0B0C),
-              colorText: Colors.white,
-            );
-          },
-        );
+        Get.toNamed(AppRoutes.listnerDeleteAccount);
       },
       child: Container(
         width: double.infinity,

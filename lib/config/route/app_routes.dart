@@ -18,7 +18,6 @@ import '../../features/listener/library/screens/add_song_to_playlist_screen.dart
 import '../../features/listener/library/screens/review_playlist_screen.dart';
 import '../../features/listener/library/screens/playlist_created_screen.dart';
 
-
 import '../../features/auth/change_password/presentation/screen/change_password_screen.dart';
 import '../../features/auth/forgot password/presentation/screen/create_password.dart';
 import '../../features/auth/forgot password/presentation/screen/forgot_password.dart';
@@ -40,8 +39,15 @@ import '../../features/listener/profile/screens/listner_manage_subscription_scre
 import '../../features/listener/profile/screens/listner_subscription_renew_screen.dart';
 import '../../features/listener/profile/screens/listner_settings_screen.dart';
 import '../../features/listener/profile/screens/listner_payment_history_screen.dart';
+import '../../features/listener/profile/screens/listner_billing_payment_screen.dart';
+import '../../features/listener/profile/screens/listner_payment_history_logs_screen.dart';
+import '../../features/listener/profile/screens/listner_notification_settings_screen.dart';
+import '../../features/listener/profile/screens/listner_about_screen.dart';
+import '../../features/listener/profile/screens/listner_delete_account_screen.dart';
 import '../../features/listener/profile/screens/listner_help_support_screen.dart';
 import '../../features/listener/profile/screens/listner_faq_screen.dart';
+import '../../features/listener/profile/screens/listner_playback_preferences_screen.dart';
+import '../../features/listener/profile/screens/listner_download_quality_screen.dart';
 import '../../features/splash/splash_screen.dart';
 
 class AppRoutes {
@@ -64,20 +70,40 @@ class AppRoutes {
   static const String profile = '/profile_screen.dart';
   static const String editProfile = '/edit_profile.dart';
   static const String listnerEditProfile = '/listner_edit_profile_screen.dart';
-  static const String listnerActiveSubscription = '/listner_active_subscription_screen.dart';
-  static const String listnerSubscriptionDetail = '/listner_subscription_detail_screen.dart';
-  static const String listnerCancelSubscription = '/listner_cancel_subscription_screen.dart';
-  static const String listnerManageSubscription = '/listner_manage_subscription_screen.dart';
-  static const String listnerSubscriptionRenew = '/listner_subscription_renew_screen.dart';
-  static const String listnerPaymentHistory = '/listner_payment_history_screen.dart';
+  static const String listnerActiveSubscription =
+      '/listner_active_subscription_screen.dart';
+  static const String listnerSubscriptionDetail =
+      '/listner_subscription_detail_screen.dart';
+  static const String listnerCancelSubscription =
+      '/listner_cancel_subscription_screen.dart';
+  static const String listnerManageSubscription =
+      '/listner_manage_subscription_screen.dart';
+  static const String listnerSubscriptionRenew =
+      '/listner_subscription_renew_screen.dart';
+  static const String listnerPaymentHistory =
+      '/listner_payment_history_screen.dart';
+  static const String listnerBillingPayment =
+      '/listner_billing_payment_screen.dart';
+  static const String listnerPaymentHistoryLogs =
+      '/listner_payment_history_logs_screen.dart';
+  static const String listnerNotificationSettings =
+      '/listner_notification_settings_screen.dart';
+  static const String listnerAbout =
+      '/listner_about_screen.dart';
+  static const String listnerDeleteAccount =
+      '/listner_delete_account_screen.dart';
   static const String listnerHelpSupport = '/listner_help_support_screen.dart';
   static const String listnerFaq = '/listner_faq_screen.dart';
+  static const String playbackPreferences = '/playback_preferences_screen.dart';
+  static const String downloadQuality = '/download_quality_screen.dart';
   static const String privacyPolicy = '/privacy_policy_screen.dart';
   static const String termsOfServices = '/terms_of_services_screen.dart';
   static const String setting = '/setting_screen.dart';
   static const String selectRole = '/selectRole';
-  static const String detailsFeaturedArtists = '/details_featuredartists_screen.dart';
-  static const String detailsTrendingArtists = '/details_trendingartist_screen.dart';
+  static const String detailsFeaturedArtists =
+      '/details_featuredartists_screen.dart';
+  static const String detailsTrendingArtists =
+      '/details_trendingartist_screen.dart';
   static const String artistProfile = '/artist_profile_screen.dart';
   static const String artistAllSongs = '/artist_all_songs_screen.dart';
   static const String subscribePlan = '/subscribe_plan_screen.dart';
@@ -95,7 +121,10 @@ class AppRoutes {
     GetPage(name: splash, page: () => const SplashScreen()),
     GetPage(name: onboarding, page: () => const OnboardingScreen()),
     GetPage(name: artistOnboarding, page: () => const ArtistOnboardingScreen()),
-    GetPage(name: listenerOnboarding, page: () => const ListenerOnboardingScreen()),
+    GetPage(
+      name: listenerOnboarding,
+      page: () => const ListenerOnboardingScreen(),
+    ),
     GetPage(name: signUp, page: () => SignUpScreen()),
     GetPage(name: verifyUser, page: () => const VerifyUser()),
     GetPage(name: signIn, page: () => SignInScreen()),
@@ -109,19 +138,77 @@ class AppRoutes {
     GetPage(name: message, page: () => const MessageScreen()),
     GetPage(name: profile, page: () => const ProfileScreen()),
     GetPage(name: editProfile, page: () => EditProfile()),
-    GetPage(name: listnerEditProfile, page: () => const ListnerEditProfileScreen()),
-    GetPage(name: listnerActiveSubscription, page: () => const ListnerActiveSubscriptionScreen()),
-    GetPage(name: listnerSubscriptionDetail, page: () => const ListnerSubscriptionDetailScreen()),
-    GetPage(name: listnerCancelSubscription, page: () => const ListnerCancelSubscriptionScreen()),
-    GetPage(name: listnerManageSubscription, page: () => const ListnerManageSubscriptionScreen()),
-    GetPage(name: listnerSubscriptionRenew, page: () => const ListnerSubscriptionRenewScreen()),
+    GetPage(
+      name: listnerEditProfile,
+      page: () => const ListnerEditProfileScreen(),
+    ),
+    GetPage(
+      name: listnerActiveSubscription,
+      page: () => const ListnerActiveSubscriptionScreen(),
+    ),
+    GetPage(
+      name: listnerSubscriptionDetail,
+      page: () => const ListnerSubscriptionDetailScreen(),
+    ),
+    GetPage(
+      name: listnerCancelSubscription,
+      page: () => const ListnerCancelSubscriptionScreen(),
+    ),
+    GetPage(
+      name: listnerManageSubscription,
+      page: () => const ListnerManageSubscriptionScreen(),
+    ),
+    GetPage(
+      name: listnerSubscriptionRenew,
+      page: () => const ListnerSubscriptionRenewScreen(),
+    ),
     GetPage(name: setting, page: () => const ListnerSettingsScreen()),
-    GetPage(name: listnerPaymentHistory, page: () => const ListnerPaymentHistoryScreen()),
-    GetPage(name: listnerHelpSupport, page: () => const ListnerHelpSupportScreen()),
+    GetPage(
+      name: listnerPaymentHistory,
+      page: () => const ListnerPaymentHistoryScreen(),
+    ),
+    GetPage(
+      name: listnerBillingPayment,
+      page: () => const ListnerBillingPaymentScreen(),
+    ),
+    GetPage(
+      name: listnerPaymentHistoryLogs,
+      page: () => const ListnerPaymentHistoryLogsScreen(),
+    ),
+    GetPage(
+      name: listnerNotificationSettings,
+      page: () => const ListnerNotificationSettingsScreen(),
+    ),
+    GetPage(
+      name: listnerAbout,
+      page: () => const ListnerAboutScreen(),
+    ),
+    GetPage(
+      name: listnerDeleteAccount,
+      page: () => const ListnerDeleteAccountScreen(),
+    ),
+    GetPage(
+      name: listnerHelpSupport,
+      page: () => const ListnerHelpSupportScreen(),
+    ),
     GetPage(name: listnerFaq, page: () => const ListnerFaqScreen()),
+    GetPage(
+      name: playbackPreferences,
+      page: () => const ListnerPlaybackPreferencesScreen(),
+    ),
+    GetPage(
+      name: downloadQuality,
+      page: () => const ListnerDownloadQualityScreen(),
+    ),
     GetPage(name: selectRole, page: () => SelectRoleScreen()),
-    GetPage(name: detailsFeaturedArtists, page: () => const DetailsFeaturedArtistsScreen()),
-    GetPage(name: detailsTrendingArtists, page: () => const DetailsTrendingArtistScreen()),
+    GetPage(
+      name: detailsFeaturedArtists,
+      page: () => const DetailsFeaturedArtistsScreen(),
+    ),
+    GetPage(
+      name: detailsTrendingArtists,
+      page: () => const DetailsTrendingArtistScreen(),
+    ),
     GetPage(name: artistProfile, page: () => const ArtistProfileScreen()),
     GetPage(name: artistAllSongs, page: () => const ArtistAllSongsScreen()),
     GetPage(name: subscribePlan, page: () => const SubscribePlanScreen()),
@@ -130,7 +217,10 @@ class AppRoutes {
     GetPage(name: recentlyPlayed, page: () => const RecentlyPlayedScreen()),
     GetPage(name: songInfo, page: () => const SongInfoScreen()),
     GetPage(name: createPlaylist, page: () => const CreatePlaylistScreen()),
-    GetPage(name: addSongToPlaylist, page: () => const AddSongToPlaylistScreen()),
+    GetPage(
+      name: addSongToPlaylist,
+      page: () => const AddSongToPlaylistScreen(),
+    ),
     GetPage(name: reviewPlaylist, page: () => const ReviewPlaylistScreen()),
     GetPage(name: playlistCreated, page: () => const PlaylistCreatedScreen()),
     GetPage(name: reportSong, page: () => const ReportSongScreen()),

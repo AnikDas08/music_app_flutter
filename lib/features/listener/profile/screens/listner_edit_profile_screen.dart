@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:muzikgen_app/component/button/common_button.dart';
-import 'package:muzikgen_app/component/image/common_image.dart';
 import 'package:muzikgen_app/component/pop_up/common_pop_menu.dart';
 import 'package:muzikgen_app/component/text/common_text.dart';
 import 'package:muzikgen_app/component/text_field/common_text_field.dart';
 import 'package:muzikgen_app/config/route/app_routes.dart';
 import 'package:muzikgen_app/utils/constants/app_colors.dart';
+import 'package:muzikgen_app/features/common/home_nav/controller/home_nav_controller.dart';
+import 'package:muzikgen_app/features/listener/library/controller/listner_library_controller.dart';
 import '../controller/listner_profile_controller.dart';
 
 class ListnerEditProfileScreen extends StatelessWidget {
@@ -337,16 +338,23 @@ class ListnerEditProfileScreen extends StatelessWidget {
           _buildAccountOption(
             icon: Icons.notifications_none_outlined,
             title: 'Notification Preferences',
-            onTap: () {
-              // Action handler
-            },
+            onTap: () => Get.toNamed(AppRoutes.listnerNotificationSettings),
           ),
           Divider(color: Colors.white.withValues(alpha: 0.05), height: 1),
           _buildAccountOption(
             icon: Icons.favorite_border_outlined,
             title: 'Favorite Artists',
             onTap: () {
-              // Action handler
+              Get.back();
+              final homeNavController = Get.isRegistered<HomeNavController>()
+                  ? Get.find<HomeNavController>()
+                  : Get.put(HomeNavController());
+              homeNavController.changeIndex(2); // Library tab (index 2)
+
+              final libraryController = Get.isRegistered<ListnerLibraryController>()
+                  ? Get.find<ListnerLibraryController>()
+                  : Get.put(ListnerLibraryController());
+              libraryController.changeTab(1); // Favorite tab (index 1)
             },
           ),
           Divider(color: Colors.white.withValues(alpha: 0.05), height: 1),

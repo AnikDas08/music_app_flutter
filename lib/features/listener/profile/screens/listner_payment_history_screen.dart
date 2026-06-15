@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:muzikgen_app/component/text/common_text.dart';
+import 'package:muzikgen_app/config/route/app_routes.dart';
 import 'package:muzikgen_app/utils/constants/app_colors.dart';
 
 class ListnerPaymentHistoryScreen extends StatelessWidget {
@@ -79,23 +80,23 @@ class ListnerPaymentHistoryScreen extends StatelessWidget {
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                   child: Container(
-                     height: 40.r,
-                     width: 40.r,
-                     decoration: BoxDecoration(
-                       color: Colors.white.withValues(alpha: 0.08),
-                       shape: BoxShape.circle,
-                       border: Border.all(
-                         color: Colors.white.withValues(alpha: 0.15),
-                         width: 1.r,
-                       ),
-                     ),
-                     child: const Center(
-                       child: Icon(
-                         Icons.chevron_left,
-                         color: Colors.white,
-                         size: 24,
-                       ),
-                     ),
+                    height: 40.r,
+                    width: 40.r,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.08),
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.15),
+                        width: 1.r,
+                      ),
+                    ),
+                    child: const Center(
+                      child: Icon(
+                        Icons.chevron_left,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -128,13 +129,7 @@ class ListnerPaymentHistoryScreen extends StatelessWidget {
             title: 'Billing & Payment',
             subtitle: 'Manage payment methods and subscriptions',
             onTap: () {
-              Get.snackbar(
-                'Billing & Payment',
-                'Billing settings are coming soon',
-                snackPosition: SnackPosition.BOTTOM,
-                backgroundColor: const Color(0xFF131315),
-                colorText: Colors.white,
-              );
+              Get.toNamed(AppRoutes.listnerBillingPayment);
             },
           ),
           // Divider
@@ -151,13 +146,7 @@ class ListnerPaymentHistoryScreen extends StatelessWidget {
             title: 'Payment History',
             subtitle: 'View receipts and transaction history',
             onTap: () {
-              Get.snackbar(
-                'Payment History',
-                'Payment History logs are coming soon',
-                snackPosition: SnackPosition.BOTTOM,
-                backgroundColor: const Color(0xFF131315),
-                colorText: Colors.white,
-              );
+              Get.toNamed(AppRoutes.listnerPaymentHistoryLogs);
             },
           ),
         ],
@@ -215,7 +204,11 @@ class ListnerPaymentHistoryScreen extends StatelessWidget {
               ),
             ),
             // Chevron Right
-            Icon(Icons.chevron_right, color: Colors.white.withValues(alpha: 0.5), size: 22.sp),
+            Icon(
+              Icons.chevron_right,
+              color: Colors.white.withValues(alpha: 0.5),
+              size: 22.sp,
+            ),
           ],
         ),
       ),
@@ -246,7 +239,11 @@ class ListnerPaymentHistoryScreen extends StatelessWidget {
                     color: Color(0xFF1E2E25),
                   ),
                   child: Center(
-                    child: Icon(Icons.bar_chart_rounded, color: AppColors.primaryColor, size: 20.sp),
+                    child: Icon(
+                      Icons.bar_chart_rounded,
+                      color: AppColors.primaryColor,
+                      size: 20.sp,
+                    ),
                   ),
                 ),
                 SizedBox(width: 12.w),
@@ -301,7 +298,11 @@ class ListnerPaymentHistoryScreen extends StatelessWidget {
                     color: Color(0xFF1E2E25),
                   ),
                   child: Center(
-                    child: Icon(Icons.check_circle_outline_rounded, color: AppColors.primaryColor, size: 20.sp),
+                    child: Icon(
+                      Icons.check_circle_outline_rounded,
+                      color: AppColors.primaryColor,
+                      size: 20.sp,
+                    ),
                   ),
                 ),
                 SizedBox(width: 12.w),
@@ -353,7 +354,11 @@ class ListnerPaymentHistoryScreen extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       child: Row(
         children: [
-          Icon(Icons.verified_user_outlined, color: AppColors.primaryColor, size: 24.sp),
+          Icon(
+            Icons.verified_user_outlined,
+            color: AppColors.primaryColor,
+            size: 24.sp,
+          ),
           SizedBox(width: 12.w),
           Expanded(
             child: Column(

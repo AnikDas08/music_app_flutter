@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -94,54 +95,146 @@ class PopUpMenu extends StatelessWidget {
 void logOutPopUp() {
   showDialog(
     context: Get.context!,
+    barrierColor: Colors.black.withValues(alpha: 0.45),
     builder: (context) {
-      // Controller for the animation
-      return AnimationPopUp(
-        child: AnimatedBuilder(
-          animation: CurvedAnimation(
-            parent: ModalRoute.of(context)!.animation!,
-            curve: Curves.easeIn,
-          ),
-          builder: (context, child) {
-            return FadeTransition(
-              opacity: ModalRoute.of(context)!.animation!,
-              child: AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.r),
+      return BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+        child: AnimationPopUp(
+          child: Dialog(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            insetPadding: EdgeInsets.symmetric(horizontal: 40.w),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(
+                  alpha: 0.2,
+                ), // Frosted white glass effect
+                borderRadius: BorderRadius.circular(24.r),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.22),
+                  width: 1.r,
                 ),
-                contentPadding: EdgeInsets.all(12.sp),
-                title: const CommonText(
-                  text: AppString.youSureWantToLogout,
-                  maxLines: 2,
-                  fontWeight: FontWeight.w600,
-                ),
-                actions: [
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.4),
+                    blurRadius: 20.r,
+                    spreadRadius: 2.r,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Top Red Logout Icon inside thin square border
+                  Container(
+                    width: 64.r,
+                    height: 64.r,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.04),
+                      borderRadius: BorderRadius.circular(10.r),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.15),
+                        width: 1.r,
+                      ),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.logout,
+                        color: const Color(0xffE53935), // Red icon
+                        size: 28.r,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+
+                  // Title
+                  const CommonText(
+                    text: 'Log out of your account?',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  SizedBox(height: 8.h),
+
+                  // Subtitle
+                  const CommonText(
+                    text: 'You can sign back in anytime',
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.secondaryTextColor,
+                  ),
+                  SizedBox(height: 24.h),
+
+                  // Actions Buttons
                   Row(
                     children: [
+                      // Cancel Button (stadium outline shape)
                       Expanded(
-                        child: CommonButton(
-                          titleText: AppString.no,
-                          borderWidth: 1.5,
-                          buttonColor: AppColors.transparent,
-                          titleColor: AppColors.primaryColor,
+                        child: GestureDetector(
                           onTap: () => Get.back(),
+                          child: Container(
+                            height: 44.h,
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.03),
+                              borderRadius: BorderRadius.circular(100.r),
+                              border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.25),
+                                width: 1.r,
+                              ),
+                            ),
+                            alignment: Alignment.center,
+                            child: const CommonText(
+                              text: 'Cancel',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                       SizedBox(width: 16.w),
+
+                      // Logout Button (stadium solid shape)
                       Expanded(
-                        child: CommonButton(
-                          titleText: AppString.yes,
+                        child: GestureDetector(
                           onTap: () {
                             LocalStorage.removeAllPrefData();
                           },
+                          child: Container(
+                            height: 44.h,
+                            decoration: BoxDecoration(
+                              color: const Color(
+                                0xffE53935,
+                              ), // Solid red matching mockup
+                              borderRadius: BorderRadius.circular(100.r),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(
+                                    0xffE53935,
+                                  ).withValues(alpha: 0.2),
+                                  blurRadius: 10.r,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            alignment: Alignment.center,
+                            child: const CommonText(
+                              text: 'Logout',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
-            );
-          },
+            ),
+          ),
         ),
       );
     },
